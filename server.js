@@ -1,4 +1,8 @@
 //  OpenShift sample Node application
+
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
@@ -53,6 +57,9 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 
   }
 }
+
+
+
 var db = null,
     dbDetails = new Object();
 
@@ -76,6 +83,12 @@ var initDb = function(callback) {
     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
+
+mongoose.connect(mongoURL,{ useMongoClient: true },function(err){
+  if(err) throw err;
+  console.log('Successfully connected to MongoDB');
+});
+
 
 
 
