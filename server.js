@@ -84,10 +84,10 @@ var initDb = function(callback) {
   });
 };
 
-mongoose.connect(mongoURL,{ useMongoClient: true },function(err){
-  if(err) throw err;
-  console.log('Successfully connected to MongoDB');
-});
+// mongoose.connect(mongoURL,{ useMongoClient: true },function(err){
+//   if(err) throw err;
+//   console.log('Successfully connected to MongoDB');
+// });
 
 
 
