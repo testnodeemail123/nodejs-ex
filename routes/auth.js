@@ -34,17 +34,17 @@ router.post('/signup', function(req, res, next) {
 	console.log('/signup: ',req.body.email)
 
   if(!req.body.email) {
-    res.json({'type':'Error','message':'No Email Found'})
+    return res.json({'type':'Error','message':'No Email Found'})
   }
 
   User.findOne({ email: req.body.email }, function (err, user) {
 
     if (err) { 
-   		if(!req.timedout)  res.json({'type':'Error','message':'Server Error'}) 
+   		if(!req.timedout)  return res.json({'type':'Error','message':'Server Error'}) 
     }
     
     if (user) { 
-			if(!req.timedout)  res.json({'type':'Info','message':'Email Already Registered'});    
+			if(!req.timedout)  return res.json({'type':'Info','message':'Email Already Registered'});    
     }
 
     if (!user) { 
@@ -85,7 +85,7 @@ router.post('/signup', function(req, res, next) {
 
 	    user.save(function(err,user) {
 		    if (err) { 
-		    	if(!req.timedout)  res.json({'type':'Error','message':'Server Timed Out'}); 
+		    	if(!req.timedout)  return res.json({'type':'Error','message':'Server Timed Out'}); 
 		    }
 
         var link = configApp.appurl+"/verify/"+token+"/"+user._id;
@@ -103,11 +103,11 @@ router.post('/signup', function(req, res, next) {
 	      transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
 						if(!req.timedout) {
-							 res.json({'type':'Error','message':'Verification Email could not be sent'});    
+							 return res.json({'type':'Error','message':'Verification Email could not be sent'});    
 						}
           }
 	
-		      if(!req.timedout)  res.json({'type':'Success','message':'User Created. Verification Email sent '});
+		      if(!req.timedout)  return res.json({'type':'Success','message':'User Created. Verification Email sent '});
 	  
 	      });
 
