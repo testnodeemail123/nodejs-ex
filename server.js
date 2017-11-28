@@ -77,7 +77,7 @@ var initDb = function(callback) {
     //   return;
     // }
 
-    var db = mongoose.connection;// db = conn;
+    db = mongoose.connection;// db = conn;
     dbDetails.databaseName = db.databaseName;
     dbDetails.url = mongoURLLabel;
     dbDetails.type = 'MongoDB';
