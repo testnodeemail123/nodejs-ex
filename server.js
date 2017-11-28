@@ -69,38 +69,38 @@ var initDb = function(callback) {
   var mongodb = require('mongodb');
   if (mongodb == null) return;
 
-  mongoose.connect(mongoURL,{ useMongoClient: true },function(err){
-    if(err) throw err;
-    // console.log('Successfully connected to MongoDB');
-    // if (err) {
-    //   callback(err);
-    //   return;
-    // }
+  // mongoose.connect(mongoURL,{ useMongoClient: true },function(err){
+  //   if(err) throw err;
+  //   // console.log('Successfully connected to MongoDB');
+  //   // if (err) {
+  //   //   callback(err);
+  //   //   return;
+  //   // }
 
-    db = mongoose.connection;// db = conn;
-    dbDetails.databaseName = db.databaseName;
-    dbDetails.url = mongoURLLabel;
-    dbDetails.type = 'MongoDB';
-
-    console.log('Connected to MongoDB at: %s', mongoURL);
-
-
-  });
-
-
-  // mongodb.connect(mongoURL, function(err, conn) {
-  //   if (err) {
-  //     callback(err);
-  //     return;
-  //   }
-
-  //   db = conn;
+  //   db = mongoose.connection;// db = conn;
   //   dbDetails.databaseName = db.databaseName;
   //   dbDetails.url = mongoURLLabel;
   //   dbDetails.type = 'MongoDB';
 
   //   console.log('Connected to MongoDB at: %s', mongoURL);
+
+
   // });
+
+
+  mongodb.connect(mongoURL, function(err, conn) {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    db = conn;
+    dbDetails.databaseName = db.databaseName;
+    dbDetails.url = mongoURLLabel;
+    dbDetails.type = 'MongoDB';
+
+    console.log('Connected to MongoDB at: %s', mongoURL);
+  });
 };
 
 // mongoose.connect(mongoURL,{ useMongoClient: true },function(err){
